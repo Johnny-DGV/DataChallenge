@@ -1,0 +1,173 @@
+library(tidyverse)
+library(janitor)
+library(sf)
+library(lubridate)
+library(readxl)
+library(stringi)
+
+path_listings       <- "C:/Users/Xote/Downloads/listings (1).csv"
+path_listings_scr   <- "C:/Users/Xote/Downloads/listings_scrapped (1).csv"
+path_reviews        <- "C:/Users/Xote/Downloads/reviews1 (1).csv"
+path_neighbourhoods <- "C:/Users/Xote/Downloads/neighbourhoods (1).geojson"
+path_delitos        <- "C:/Users/Xote/Downloads/municipal Delitos - OCTUBRE 2025.xlsx"
+
+
+normaliza_nombre <- function(x) {
+  x |> 
+    str_to_upper() |>
+    str_squish() |>
+    stringi::stri_trans_general("Latin-ASCII")
+}
+
+
+###CARGAR BASES ---------------------------------------
+
+# LISTINGS
+listings <- read_csv(path_listings) |>
+  clean_names()
+
+# LISTINGS SCRAPED (no usado aún pero cargado)
+listings_scraped <- read_csv(path_listings_scr) |>
+  clean_names()
+
+# REVIEWS
+reviews <- read_csv(path_reviews) |>
+  clean_names()
+
+# GEOMETRÍA DE ALCALDÍAS
+neighbourhoods <- st_read(path_neighbourhoods) |>
+  clean_names()
+
+# DELITOS
+delitos_mun <- read_excel(path_delitos) |>
+  clean_names()
+
+
+### 5. LIMPIEZA DE LISTINGS -------------------------------
+
+listings <- listings |>
+  mutate(
+    price_num = price |>
+      str_remove_all("[$,]") |>
+      as.numeric()
+  ) |>
+  filter(room_type == "Entire home/apt")
+
+
+### 6. UNIR REVIEWS A LISTINGS -----------------------------
+
+reviews_por_listing <- reviews |>
+  count(listing_id, name = "n_reviews")
+
+listings <- listings |>
+  left_join(reviews_por_listing, by = c("id" = "listing_id")) |>
+  mutate(
+    n_reviews_total = coalesce(n_reviews, number_of_reviews)
+  )
+
+
+### 7. ESTANDARIZAR ALCALDÍAS ------------------------------
+
+# 7.1 Normalizar nombres en neighbourhoods
+# → checa nombres reales; ajustar si se llama distinto
+neighbourhoods_clean <- neighbourhoods |>
+  mutate(
+    alcaldia = normaliza_nombre(neighbourhood)
+  ) |>
+  st_drop_geometry() |>
+  select(alcaldia) |>
+  distinct()
+
+# 7.2 Normalizar nombres en listings
+listings <- listings |>
+  mutate(
+    alcaldia = normaliza_nombre(neighbourhood)
+  )
+
+
+### 8. LIMPIAR BASE DE DELITOS -----------------------------
+
+# Mira cómo quedaron los nombres después de clean_names()
+names(delitos_mun)
+
+# Construimos variables para 2025
+delitos_mun <- delitos_mun |>
+  mutate(
+    alcaldia       = normaliza_nombre(municipio),
+    delitos_totales = x2025,        # columna "2025" del Excel
+    delitos_km2     = ratio_2025    # columna "RATIO 2025" del Excel
+  ) |>
+  select(
+    alcaldia,
+    delitos_totales,
+    delitos_km2
+  )
+
+### 9. UNIR LISTINGS + DELITOS ------------------------------
+
+listings_full <- listings |>
+  left_join(delitos_mun, by = "alcaldia")
+
+
+### 10. AGREGAR A NIVEL ALCALDÍA ----------------------------
+
+alcaldia_stats <- listings_full |>
+  group_by(alcaldia) |>
+  summarise(
+    n_listings          = n(),
+    mean_price          = mean(price_num, na.rm = TRUE),
+    median_price        = median(price_num, na.rm = TRUE),
+    avg_reviews         = mean(n_reviews_total, na.rm = TRUE),
+    delitos_km2         = first(delitos_km2),
+    delitos_totales     = first(delitos_totales)
+  ) |>
+  ungroup()
+
+
+### 11. CREAR SCORE DE ATRACTIVO ---------------------------
+
+alcaldia_scores <- alcaldia_stats |>
+  mutate(
+    z_price    = as.numeric(scale(mean_price)),
+    z_reviews  = as.numeric(scale(avg_reviews)),
+    z_crime    = as.numeric(scale(delitos_km2)),
+    score      = z_price + z_reviews - z_crime
+  ) |>
+  arrange(desc(score))
+
+top10_alcaldias <- alcaldia_scores |> slice_head(n = 10)
+top3_alcaldias  <- alcaldia_scores |> slice_head(n = 3)
+
+top3_alcaldias
+
+
+### 12. GRÁFICAS -------------------------------------------
+
+# 12.1 Relación delitos vs precio
+ggplot(alcaldia_scores, aes(x = delitos_km2, y = mean_price)) +
+  geom_point(alpha = 0.7) +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(
+    x = "Delitos por km² (alcaldía)",
+    y = "Precio promedio por noche (MXN)",
+    title = "Relación entre inseguridad y precios de Airbnb por alcaldía"
+  ) +
+  theme_minimal()
+
+# 12.2 Top 10 por score
+ggplot(top10_alcaldias, aes(x = reorder(alcaldia, score), y = score)) +
+  geom_col() +
+  coord_flip() +
+  labs(
+    x = "Alcaldía",
+    y = "Índice de atractivo",
+    title = "Top 10 alcaldías para inversión Airbnb"
+  ) +
+  theme_minimal()
+###MODELO
+modelo <- lm(
+  log(price_num) ~ delitos_km2 + n_reviews_total,
+  data = listings_full
+)
+
+summary(modelo)
