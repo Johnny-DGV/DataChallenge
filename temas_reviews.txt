@@ -1,0 +1,51 @@
+1. Host/Staff (H):
+- H1: Hospitality & Warmth (friendliness, being welcoming)
+- H2: Communication (responsiveness, speed)
+- H3: Local Guidance (provided tips/recommendations)
+- H4: Issue Resolution (problem-solving, fairness)
+- H5: Language Skills (language barriers or communication ease)
+2. Operations & Logistics (G):
+- G1: Check-in/out Logistics (ease, timing, key exchange)
+- G2: Cleaning Service (cleaning provided during stay)
+- G3: Breakfast & Included Services (quality of food/drinks)
+- G4: Extra Services (tours, transfers organized)
+- G5: House Rules (rules fairness/impact)
+3. Property Interior (P):
+- P1: Maintenance Condition (repairs, age, renovations)
+- P2: Initial Cleanliness (cleanliness upon arrival)
+- P3: Comfort & Equipment (beds, WiFi, amenities)
+- P4: Size & Spaciousness (perceived space)
+- P5: Aesthetics & Design (decor, visual appeal)
+- P6: Light & Views (natural light, views)
+4. Layout & Experience (L):
+- L1: Group Suitability (families/groups)
+- L2: Long-stay Suitability (storage, laundry, kitchen)
+- L3: Privacy (degree of privacy)
+- L4: Accessibility (stairs, elevators)
+- L5: Private Outdoor Spaces (balcony, patio, etc.)
+- L6: Traveler Profile (nomads, couples, etc.)
+- L7: Social Interaction (shared areas, socializing)
+5. Building (B):
+- B1: Building Security (doorman, gated access)
+- B2: Acoustic Insulation (soundproofing, noise from neighbors)
+- B3: Building Type (structure style)
+- B4: Building Amenities (pool, gym, shared laundry)
+- B5: Parking (availability, security)
+6. Neighborhood/Location (N):
+- N1: Strategic Location (central, convenient)
+- N2: Connectivity (public transport, taxi/Uber ease)
+- N3: Area Security (safety perception)
+- N4: Walkability (sidewalks, parks nearby)
+- N5: Nearby Services (stores, banks, pharmacy)
+- N6: Leisure & Culture (restaurants, museums)
+- N7: External Noise Environment (traffic, night noise)
+- N8: Neighborhood Vibe (atmosphere, character)
+- N9: International Friendliness (ease for non-locals)
+7. Accuracy (A):
+- A1: Listing Accuracy (photo/description match)
+8. Value/Price (V):
+- V1: Value for Money (perceived value)
+9. General Satisfaction (S):
+- S1: Global Satisfaction (overall judgment)
+- S2: Recommendation/Return (willingness to recommend or return)
+- S3: Repeat Guest (explicit repeat stay)
