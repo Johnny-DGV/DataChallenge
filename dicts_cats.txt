@@ -1,0 +1,56 @@
+"trato": [ "amabilidad", "amable", "amables", "calidez", "cálido", "cálida", "hospitalidad", "hospitalario", "hospitalaria", "trato", "trato excelente", "trato amable", "atento", "atenta", "atención", "muy atento", "muy atenta", "servicial", "serviciales", "friendly", "super friendly", "very friendly", "kind", "very kind", "so kind", "welcoming", "warm", "warm welcome", "helpful", "very helpful", "super helpful", "hospitality", "host was great", "great host", "lovely host", "amazing host", "wonderful host"]
+
+"seguridad": [
+        "seguro", "segura", "seguridad",
+        "inseguro", "insegura",
+        "nos sentimos seguros", "me sentí seguro",
+        "zona segura", "barrio seguro",
+        "tranquilo", "tranquila",
+        "safe area", "safe neighborhood",
+        "felt safe", "felt very safe",
+        "secure", "security", "24h security",
+        "guard", "security guard",
+        "gated", "gated building", "secured building", "safest"
+    ],
+
+    "transporte": [
+        "metro", "metrobús", "metrobus",
+        "estación", "estación de metro",
+        "autobús", "camión",
+        "transporte público", "transporte",
+        "taxi", "taxis", "sitio de taxis",
+        "uber", "didi", "cabify",
+        "bus stop", "subway", "subway station",
+        "public transport", "transportation",
+        "easy to get around", "easy access",
+        "walk to metro", "close to metro"
+    ],
+
+    "ubicacion": [
+        "ubicación", "bien ubicado", "excelente ubicación",
+        "cerca de todo", "todo cerca",
+        "caminable", "se puede caminar",
+        "walking distance", "walkable",
+        "restaurantes", "cafés", "bars", "bares",
+        "supermercado", "mercados",
+        "museos", "parques", "alameda", "zócalo", "centro",
+        "zona turística", "tourist area",
+        "close to everything", "near restaurants",
+        "great location", "amazing location",
+        "perfect location", "centrally located",
+        "central location"
+    ],
+
+    "equipamiento": [
+        "cama", "camas", "colchón", "almohadas",
+        "baño", "ducha", "agua caliente", "regadera",
+        "calentador", "calefacción", "ac", "aire acondicionado",
+        "ventilador", "heater", "heating",
+        "cocina", "cocina equipada", "estufa",
+        "microondas", "refrigerador", "nevera",
+        "utensilios", "platos",
+        "wifi", "wi-fi", "internet", "fast wifi",
+        "lavadora", "secadora",
+        "amenidades", "amenities",
+        "furniture", "smart tv", "televisión"
+    ]
