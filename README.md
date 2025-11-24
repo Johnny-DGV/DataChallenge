@@ -22,10 +22,12 @@ Alejandro:
   - Procesamiento de datos por alcaldías y análisis de estadística descriptiva.
   - Condensamiento de toda la información y análisis dentro del reporte.
   - Análisis de mercados para emitir recomendación de colonia.
+
 Jose Francisco: 
   - Creación del modelo principal e interpretaciones de regresiones.
   - Obtención de datos de seguridad como variable principal en el análisis.
   - Limpieza principal de datos para regresiones.
+
 Juan Daniel:
   - Pruebas sobre el modelo principal.
   - Obtención de datos de ingreso estimado por municipio.
