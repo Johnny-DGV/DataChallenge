@@ -2,6 +2,8 @@
 Proyecto para microeconometría
 
 ## Contenido del repositorio
+### Resumen ejecutivo
+1) Data Challenge reporte(1).pdf
 ### Bases de datos Airbnb:
 1) listings (1).csv: principal base de datos para el análisis, parte de los datasets incluidos en el reto.
 2) listings_scrapped.csv (no está por temas de almacenamiento): algunas variables adicionales al otro archivo de listings, destacando estimated_revenue_l365d.
